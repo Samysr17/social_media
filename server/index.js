@@ -8,7 +8,7 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
-import {signin} from "./controllers/auth.js"
+import {Signin} from "./controllers/auth"
 
 //middleware configs
 const __filename=fileURLToPath(import.meta.url);
