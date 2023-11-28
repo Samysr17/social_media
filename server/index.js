@@ -10,6 +10,10 @@ import path from "path"
 import { fileURLToPath } from "url"
 // import {Signin} from "./controllers/Auth"
 import authRoutes from "./routes/Auth.js"
+import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
+import { verifytoken } from "./middleware/Auth.js"
+import {createPost} from "./controllers/posts.js"
 
 //middleware configs
 const __filename=fileURLToPath(import.meta.url);
@@ -38,10 +42,13 @@ const storage=multer.diskStorage({
 const upload=multer({storage});//upload
 
 
-app.use("/auth/signin",upload.single("picture"));//middleware,controller
+app.post("/auth/signin",upload.single("picture"));//middleware,controller
+app.post("/posts",verifytoken,upload.single("picture"),createPost);
 
 //routes
 app.use("/auth",authRoutes);
+app.use("/users",userRoutes);
+app.use("/posts",postRoutes);
 
 const PORT=process.env.PORT || 8000;
 mongoose.connect("mongodb+srv://testuser:test123@cluster0.6u46r0o.mongodb.net/?retryWrites=true&w=majority",{
