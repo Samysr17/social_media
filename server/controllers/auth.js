@@ -38,5 +38,20 @@ export const Signin=async(req,res)=>{
        res.status(500).json({error:err.message});//saving failes
     }
     
+}
 
+export const login=async(req,res)=>{
+    try{
+        const {email,password}=req.body;
+        const user=await User.findOne({email:email});
+        if(!user) return res.status(400).json({msg:"User does not exist"});
+        const same=await bycrypt.compare(password,user.password);
+        if(!same) return res.status(400).json({msg:"Password is not same"});
+
+        const token=jwt.sign({id:user._id},"ManchesterUnited");
+        delete user.password;
+        res.status(200).json({token,user});
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
 }

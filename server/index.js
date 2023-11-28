@@ -8,7 +8,8 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
-// import {Signin} from './controllers/Auth'
+// import {Signin} from "./controllers/Auth"
+import authRoutes from "./routes/Auth.js"
 
 //middleware configs
 const __filename=fileURLToPath(import.meta.url);
@@ -38,6 +39,9 @@ const upload=multer({storage});//upload
 
 
 app.use("/auth/signin",upload.single("picture"));//middleware,controller
+
+//routes
+app.use("/auth",authRoutes);
 
 const PORT=process.env.PORT || 8000;
 mongoose.connect("mongodb+srv://testuser:test123@cluster0.6u46r0o.mongodb.net/?retryWrites=true&w=majority",{
