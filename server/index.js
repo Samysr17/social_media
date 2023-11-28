@@ -8,7 +8,7 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
-import {Signin} from "./controllers/auth"
+// import {Signin} from './controllers/Auth'
 
 //middleware configs
 const __filename=fileURLToPath(import.meta.url);
@@ -37,10 +37,10 @@ const storage=multer.diskStorage({
 const upload=multer({storage});//upload
 
 
-app.use("/auth/signin",upload.single("picture"),signin);//middleware,controller
+app.use("/auth/signin",upload.single("picture"));//middleware,controller
 
 const PORT=process.env.PORT || 8000;
-mongoose.connect("mongodb+srv://dummyuser:Samrat3112@cluster0.6u46r0o.mongodb.net/?retryWrites=true&w=majority",{
+mongoose.connect("mongodb+srv://testuser:test123@cluster0.6u46r0o.mongodb.net/?retryWrites=true&w=majority",{
     // useNewUrlParser:true,
     // useUnifiedTopology:true,
 }).then(()=>{
