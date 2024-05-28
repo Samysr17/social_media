@@ -1,9 +1,9 @@
 import bycrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import User from "../models/User"
+import User from "../models/User.js"
 
 //getting request in destructured and sending required response in saving user data
-export const Signin=async(req,res)=>{
+export const Signup=async(req,res)=>{
     try{
         const {
             firstName,
