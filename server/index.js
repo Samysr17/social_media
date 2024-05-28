@@ -9,12 +9,14 @@ import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
 import { Signup } from "./controllers/Auth.js"
-// import {Signin} from "./controllers/Auth"
 import authRoutes from "./routes/Auth.js"
-// import userRoutes from "./routes/users.js"
-// import postRoutes from "./routes/posts.js"
-// import { verifytoken } from "./middleware/Auth.js"
-// import {createPost} from "./controllers/posts.js"
+import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
+import { verifytoken } from "./middleware/Auth.js"
+import {createPost} from "./controllers/posts.js"
+// import User from "./models/User.js"
+// import Post from "./models/Post.js"
+// import {users,posts} from "./data/index.js"
 
 //middleware configs
 const __filename=fileURLToPath(import.meta.url);
@@ -44,12 +46,12 @@ const upload=multer({storage});//upload
 
 
 app.post("/auth/signup",upload.single("picture"),Signup);//middleware,controller
-// app.post("/posts",verifytoken,upload.single("picture"),createPost);
+app.post("/posts",verifytoken,upload.single("picture"),createPost);
 
 // //routes
 app.use("/auth",authRoutes);
-// app.use("/users",userRoutes);
-// app.use("/posts",postRoutes);
+app.use("/users",userRoutes);
+app.use("/posts",postRoutes);
 
 const PORT=process.env.PORT || 8000;
 mongoose.connect(process.env.MONGO_URL,{
@@ -57,4 +59,6 @@ mongoose.connect(process.env.MONGO_URL,{
     // useUnifiedTopology:true,
 }).then(()=>{
     app.listen(PORT,()=>console.log(`server running on ${PORT} `));
+    // User.insertMany(users);
+    // Post.insertMany(posts);
 }).catch((error)=>console.log(`${error} `));//db connection
