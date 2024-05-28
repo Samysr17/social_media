@@ -10,7 +10,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { Signup } from "./controllers/Auth.js"
 // import {Signin} from "./controllers/Auth"
-// import authRoutes from "./routes/Auth.js"
+import authRoutes from "./routes/Auth.js"
 // import userRoutes from "./routes/users.js"
 // import postRoutes from "./routes/posts.js"
 // import { verifytoken } from "./middleware/Auth.js"
@@ -47,7 +47,7 @@ app.post("/auth/signup",upload.single("picture"),Signup);//middleware,controller
 // app.post("/posts",verifytoken,upload.single("picture"),createPost);
 
 // //routes
-// app.use("/auth",authRoutes);
+app.use("/auth",authRoutes);
 // app.use("/users",userRoutes);
 // app.use("/posts",postRoutes);
 
