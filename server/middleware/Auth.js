@@ -6,7 +6,7 @@ export const verifytoken=(req,res,next)=>{
         if(!token){
             return res.status(403).send("Access Denied");
         }
-        if(token.startsWith("Bearer")){
+        if(token.startsWith("Bearer ")){
             token=token.silce(7,token.length).trimleft();
         }
         const verified=jwt.verify(token,"ManchesterUnited");
