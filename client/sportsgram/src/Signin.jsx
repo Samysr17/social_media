@@ -13,7 +13,6 @@ const Signin = () => {
   const onDrop = useCallback(acceptedFiles => {
     setimage(acceptedFiles.map(file=>
       Object.assign(file,{
-        name:file.Name,
         source:URL.createObjectURL(file)
       })
        
@@ -22,8 +21,30 @@ const Signin = () => {
     console.log(image[0].name);
   }, [])
   const {getRootProps, getInputProps,isDragActive} = useDropzone({onDrop});
-  const handleclick=()=>{
-   
+  if(select){
+    const image_url=image[0].source;
+  }
+  const handleclick=async(e)=>{
+    e.preventDefault();
+    // const {name,email,password,image_url}=data;
+    const res = await fetch(
+      "http://localhost:8000/auth/signup",
+      {
+        method: "POST",
+        body:({
+          name,
+          email,
+          password,
+        }),
+      }
+    );
+    const savedUser = await res.json();
+    console.log(savedUser);
+    if(res){
+      console.log({res});
+    }else{
+      console.error("error:");
+    }
   }
   return (
     <>
@@ -40,7 +61,7 @@ const Signin = () => {
               <h1 className='text-3xl flex justify-center '>SportsGram</h1>
               <form
                 method='POST'
-                // onSubmit={handleclick}
+                onSubmit={()=>handleclick} 
                 className='w-full flex flex-col py-4'
               >
                 
@@ -48,7 +69,7 @@ const Signin = () => {
                   onChange={(e)=>setname(e.target.value)}
                   required
                   placeholder='Name'
-                  autoComplete='Name' />
+                 />
                 <input  className='p-3 my-2 bg-white rounded text-black' type='email'
                   onChange={(e)=>setemail(e.target.value)}
                   required
@@ -64,7 +85,7 @@ const Signin = () => {
                   autoComplete='current-password'
                 />
           <div  className="p-3 my-2 bg-white rounded" {...getRootProps()}>
-          <input type='image' alt="/"  required  {...getInputProps()} />
+          <input  {...getInputProps()} />
        <div >
        {
         isDragActive ?
@@ -81,7 +102,7 @@ const Signin = () => {
        </div>
         </div>
            </div>
-                <button onSubmit={handleclick}  className='bg-blue-700 py-3 my-6 rounded font-bold text-white'>
+                <button  className='bg-blue-700 py-3 my-6 rounded font-bold text-white'>
                   Sign Up
                 </button>
                 <div className='flex justify-between items-center text-sm text-white-600'>

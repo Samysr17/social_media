@@ -6,28 +6,21 @@ import User from "../models/User.js"
 export const Signup=async(req,res)=>{
     try{
         const {
-            firstName,
-            lastName,
+            Name,
             email,
-            password,
-            picpath,
-            friends,
-            location,
-            occupation
+            password, 
+            // friends,
             }=req.body;
     
             const salt= await bycrypt.genSalt();
             const passwordhash= await bycrypt.hash(password,salt);
     
             const newuser=new User({
-            firstName,
-            lastName,
+            Name,
             email,
             password:passwordhash,
-            picpath,
+           
             friends,
-            location,
-            occupation,
             viewedProfile:Math.floor(Math.random()*100),
             impressions:Math.floor(Math.random()*10)
             })

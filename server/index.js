@@ -45,7 +45,7 @@ const storage=multer.diskStorage({
 const upload=multer({storage});//upload
 
 
-app.post("/auth/signup",upload.single("picture"),Signup);//middleware,controller
+app.post("/auth/signup",Signup);//middleware,controller
 app.post("/posts",verifytoken,upload.single("picture"),createPost);
 
 // //routes
@@ -58,7 +58,7 @@ mongoose.connect(process.env.MONGO_URL,{
     // useNewUrlParser:true,
     // useUnifiedTopology:true,
 }).then(()=>{
-    app.listen(PORT,()=>console.log(`server running on ${PORT} `));
+    app.listen(8000,()=>console.log(`server running on 8000 `));
     // User.insertMany(users);
     // Post.insertMany(posts);
 }).catch((error)=>console.log(`${error} `));//db connection
