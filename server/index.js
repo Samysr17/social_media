@@ -13,7 +13,7 @@ import authRoutes from "./routes/Auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
 import { verifytoken } from "./middleware/Auth.js"
-import {createPost} from "./controllers/posts.js"
+import {createPost} from "./controllers/posts.js"//value not reaching backend
 // import User from "./models/User.js"
 // import Post from "./models/Post.js"
 // import {users,posts} from "./data/index.js"
